@@ -1,4 +1,22 @@
+import { useState, useEffect } from 'react'
+
 export default function AppMovies() {
+
+    const [movies, setMovies] = useState([])
+    const url = 'http://localhost:3000/api/mobies'
+
+    function fetchMovies(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => setMovies(data))
+            .catch(error => console.error('Error fetching movies:', error))
+    }
+
+    useEffect(() => {
+        fetchMovies(url)
+    }, [])
+
+
     return (
 
         <>
@@ -13,28 +31,17 @@ export default function AppMovies() {
             <div className="container"></div>
             <div className="row">
                 <div className="col-md-4">
-                    <div className="card mb-4 shadow-sm"></div>
-                    <img src="https://picsum.photos/200/300" className="card-img-top mx-3" alt="..." />
-                    <div className="card-body mx-3">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="card mb-4 shadow-sm"></div>
-                    <img src="https://picsum.photos/200/300" className="card-img-top mx-3" alt="..." />
-                    <div className="card-body mx-3">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="card mb-4 shadow-sm"></div>
-                    <img src="https://picsum.photos/200/300" className="card-img-top mx-3" alt="..." />
-                    <div className="card-body mx-3">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
+                    {movies.map((movie) => (
+                        <div className="card mb-4 shadow-sm" key={movie.id}>
+                            <img src={movie.image} className="card-img-top mx-3" alt={movie.title} />
+                            <div className="card-body mx-3">
+                                <h5 className="card-title">{movie.title}</h5>
+                                <span><small>{movie.genre}</small></span>
+                                <p className="card-text">{movie.abstract}</p>
+                            </div>
+                        </div>
+                    ))}
+                    <button type="button" className="btn btn-sm btn-primary">Read More</button>
                 </div>
             </div>
         </>
