@@ -28,20 +28,21 @@ export default function AppMovies() {
                     </div>
                 </div>
             </section>
-            <div className="container"></div>
-            <div className="row">
-                <div className="col-md-4">
+            <div className="container">
+                <div className="row">
                     {movies.map((movie) => (
-                        <div className="card mb-4 shadow-sm" key={movie.id}>
-                            <img src={movie.image} className="card-img-top mx-3" alt={movie.title} />
-                            <div className="card-body mx-3">
-                                <h5 className="card-title">{movie.title}</h5>
-                                <span><small>{movie.genre}</small></span>
-                                <p className="card-text">{movie.abstract}</p>
+                        <div className="col-12 col-md-4 col-lg-3" key={movie.id}>
+                            <div className="card mb-4 shadow-sm" >
+                                <img src={`http://localhost:3000/movies_cover/${movie.image}`} className="card-img-top" alt={movie.title} />
+                                <div className="card-body mx-3">
+                                    <h5 className="card-title">{movie.title}</h5>
+                                    <span><small className="badge bg-danger">{movie.genre}</small></span>
+                                    <p className="card-text">{movie.abstract}</p>
+                                    <button type="button" className="btn btn-sm btn-primary">Read More</button>
+                                </div>
                             </div>
                         </div>
                     ))}
-                    <button type="button" className="btn btn-sm btn-primary">Read More</button>
                 </div>
             </div>
         </>
