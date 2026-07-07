@@ -4,6 +4,7 @@ import AppMovies from '../components/AppMovies'
 import Home from '../components/Home'
 import About from '../components/About'
 import Contact from '../components/Contact'
+import SingleMovie from '../components/SingleMovie'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/about' element={<About />} />
             <Route path='/movies' element={<AppMovies />} />
+            <Route path='/movies/:id' element={<SingleMovie />} />
             <Route path='/contact' element={<Contact />} />
           </Route>
         </Routes>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function AppMovies() {
 
@@ -38,7 +39,7 @@ export default function AppMovies() {
                                     <h5 className="card-title">{movie.title}</h5>
                                     <span><small className="badge bg-danger">{movie.genre}</small></span>
                                     <p className="card-text">{movie.abstract}</p>
-                                    <button type="button" className="btn btn-sm btn-primary">Read More</button>
+                                    <Link to={`/movies/${movie.id}`} className="btn btn-sm btn-primary">Read More</Link>
                                 </div>
                             </div>
                         </div>
