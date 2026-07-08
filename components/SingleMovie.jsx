@@ -19,6 +19,10 @@ export default function SingleMovie() {
         fetchMovie(url)
     }, [])
 
+    function getStars(vote) {
+        return '⭐'.repeat(vote) + '☆'.repeat(5 - vote)
+    }
+
     return (
         <>
             <div className="container-fluid mt-4">
@@ -38,6 +42,20 @@ export default function SingleMovie() {
                         <div className="mt-3">
                             <h5 className="mt-3 bg-dark text-white p-2">Directed by {movie?.director}</h5>
                             <small className="text-muted">Released on {movie?.release_year}</small>
+                        </div>
+                        <div className="mt-5">
+                            <h3>Reviews</h3>
+                            {movie?.reviews?.length > 0 &&
+                                movie.reviews.map(review => (
+                                    <div key={review.id} className="card mb-3">
+                                        <div className="card-body">
+                                            <h5>{review.name}</h5>
+                                            <p>{review.text}</p>
+                                            <span>{getStars(review.vote)}</span>
+                                        </div>
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
