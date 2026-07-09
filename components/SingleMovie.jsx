@@ -23,6 +23,34 @@ export default function SingleMovie() {
         return '⭐'.repeat(vote) + '☆'.repeat(5 - vote)
     }
 
+    const initialFormData = {
+        name: '',
+        vote: '',
+        text: ''
+    }
+    const [formData, setFormData] = useState(initialFormData)
+
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        const reviewUrl = `${url}/reviews`;
+        fetch(reviewUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                setFormData(initialFormData)
+                fetchMovie(url)
+            })
+            .catch(error => {
+
+                console.error('Error submitting review:', error)
+            })
+    }
     return (
         <>
             <div className="container-fluid mt-4">
@@ -60,6 +88,35 @@ export default function SingleMovie() {
                     </div>
                 </div>
             </div>
+            <section id="add review form" className="container my-5">
+                <div className="container">
+                    <div className="card p-5">
+                        <h2 className="mb-4">Add a Movie Review</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <label htmlFor="username" className="form-label">Your Username</label>
+                                <input type="text" className="form-control" id="username" placeholder="Enter your username" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="rating" className="form-label">Rating</label>
+                                <select className="form-control" id="rating" name="rating" value={formData.vote} onChange={(e) => setFormData({ ...formData, vote: Number(e.target.value) })}>
+                                    <option value="">Select a rating</option>
+                                    <option value="1">1 </option>
+                                    <option value="2">2 </option>
+                                    <option value="3">3 </option>
+                                    <option value="4">4 </option>
+                                    <option value="5">5 </option>
+                                </select>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="review" className="form-label">Review</label>
+                                <textarea className="form-control" id="review" rows="3" placeholder="Write your review here" value={formData.text} onChange={(e) => setFormData({ ...formData, text: e.target.value })}></textarea>
+                            </div>
+                            <button type="submit" className="btn btn-primary">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </>
     )
 }

@@ -46,6 +46,7 @@ export default function AppMovies() {
                     ))}
                 </div>
             </div>
+
         </>
     )
 }
