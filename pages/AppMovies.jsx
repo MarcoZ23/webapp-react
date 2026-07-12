@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom'
 export default function AppMovies() {
 
     const [movies, setMovies] = useState([])
+    const [loading, setLoading] = useState(true)
     const url = 'http://localhost:3000/api/mobies'
 
     function fetchMovies(url) {
         fetch(url)
             .then(response => response.json())
-            .then(data => setMovies(data))
+            .then(data => {
+                setMovies(data)
+                setLoading(false)
+            })
             .catch(error => console.error('Error fetching movies:', error))
     }
 
@@ -17,6 +21,15 @@ export default function AppMovies() {
         fetchMovies(url)
     }, [])
 
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+                <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        )
+    }
 
     return (
 

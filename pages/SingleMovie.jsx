@@ -5,13 +5,25 @@ export default function SingleMovie() {
 
     const { id } = useParams()
     const [movie, setMovie] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     const url = `http://localhost:3000/api/mobies/${id}`
+
+    const initialFormData = {
+        name: '',
+        vote: '',
+        text: ''
+    }
+
+    const [formData, setFormData] = useState(initialFormData)
 
     function fetchMovie(url) {
         fetch(url)
             .then(response => response.json())
-            .then(data => setMovie(data))
+            .then(data => {
+                setMovie(data)
+                setLoading(false)
+            })
             .catch(error => console.error('Error fetching movie:', error))
     }
 
@@ -19,16 +31,20 @@ export default function SingleMovie() {
         fetchMovie(url)
     }, [])
 
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
+                <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        )
+    }
+
     function getStars(vote) {
         return '⭐'.repeat(vote) + '☆'.repeat(5 - vote)
     }
 
-    const initialFormData = {
-        name: '',
-        vote: '',
-        text: ''
-    }
-    const [formData, setFormData] = useState(initialFormData)
 
     function handleSubmit(e) {
         e.preventDefault()

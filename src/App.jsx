@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DefaultLayout from '../layouts/DefaultLayout'
-import AppMovies from '../components/AppMovies'
-import Home from '../components/Home'
-import About from '../components/About'
-import Contact from '../components/Contact'
-import SingleMovie from '../components/SingleMovie'
+import AppMovies from '../pages/AppMovies'
+import Home from '../pages/Home'
+import About from '../pages/About'
+import Contact from '../pages/Contact'
+import SingleMovie from '../pages/SingleMovie'
 
 function App() {
 
